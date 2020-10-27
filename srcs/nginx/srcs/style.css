@@ -1,0 +1,9 @@
+html {
+    --bg-color: #eeeeee;
+}
+
+body {
+    margin: 50px 5px;
+    text-align: center;
+    background-color: var(--bg-color);
+}
