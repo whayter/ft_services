@@ -4,6 +4,9 @@ html {
 
 body {
     margin: 50px 5px;
-    text-align: center;
     background-color: var(--bg-color);
+}
+
+.text-center {
+    text-align: center;
 }
