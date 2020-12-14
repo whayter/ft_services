@@ -1,5 +1,6 @@
 html {
-    --bg-color: #eeeeee;
+    --bg-color: #e3e3e3;
+    --h-font-family: "Futura";
 }
 
 body {
@@ -7,6 +8,18 @@ body {
     background-color: var(--bg-color);
 }
 
+h1, h2, h3 {
+    font-family: var(--h-font-family);
+}
+
+h3 {
+    margin: 20px 0;
+}
+
 .text-center {
     text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
 }
