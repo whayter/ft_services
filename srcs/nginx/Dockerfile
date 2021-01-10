@@ -29,6 +29,6 @@ COPY ./srcs/setup.sh /setup.sh
 COPY ./srcs/index.html /usr/share/nginx/html/index.html
 COPY ./srcs/style.css /usr/share/nginx/html/style.css
 
-EXPOSE 80 443
+EXPOSE 80 443 22
 
 ENTRYPOINT ["sh", "/setup.sh"]
