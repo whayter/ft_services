@@ -1,33 +1,19 @@
 FROM alpine
 LABEL Maintener: Winston Hayter - hwinston@student.42.fr
 
-# apk
-RUN apk update
-RUN apk upgrade
+RUN apk update \
+ && apk add --no-cache nginx openssl php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session \
+ && yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
+ && mkdir -p /run/nginx \
 
-# nginx
-RUN apk add nginx
+COPY ./srcs/wp-install.sh /wp-install.sh
 
-# bash
-RUN apk add bash
+RUN sh /wp-install.sh
 
-#ssh
-RUN apk add openssh 
+COPY ./srcs/wp-config.php www/var/wordpress/wp-config.php
+COPY ./srcs/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./srcs/wp-run.sh /wp-run.sh
 
-# ssl
-RUN apk add openssl
-RUN adduser -D user
-RUN echo "user:password" | chpasswd
-RUN ssh-keygen -A
-RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+EXPOSE 5050
 
-RUN mkdir -p /run/nginx
-COPY ./srcs/* srcs_docker/
-COPY /srcs/nginx.conf /etc/nginx/conf.d/default.conf
-COPY /srcs/setup.sh /setup.sh
-COPY ./srcs/index.html /usr/share/nginx/html/index.html
-COPY ./srcs/style.css /usr/share/nginx/html/style.css
-
-EXPOSE 80 443
-
-ENTRYPOINT ["sh", "/setup.sh"]
+ENTRYPOINT ["sh", "/wp-run.sh"]
