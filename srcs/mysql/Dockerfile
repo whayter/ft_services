@@ -5,6 +5,6 @@ RUN apk update \
  && apk add --no-cache mysql mysql-client \
  && addgroup mysql mysql
 
-VOLUME [ "/var/lib/mysql" ]
+VOLUME /var/lib/mysql
 
 EXPOSE 3306

@@ -24,6 +24,7 @@ fi
 if [ "$1" = "--start" ] 
 then
 	minikube start --vm-driver=docker
+    sleep 1
     minikube addons enable metrics-server
 	minikube addons enable dashboard
 
