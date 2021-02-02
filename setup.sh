@@ -23,10 +23,10 @@ fi
 
 if [ "$1" = "--start" ] 
 then
-	minikube start --vm-driver=docker
+	minikube start --vm-driver=docker --bootstrapper=kubeadm
     sleep 1
-    minikube addons enable metrics-server
 	minikube addons enable dashboard
+    minikube addons enable metrics-server
 
     eval $(minikube docker-env)
     docker build -t my-nginx srcs/nginx > /dev/null
@@ -34,6 +34,7 @@ then
     docker build -t my-wordpress srcs/wordpress > /dev/null
     docker build -t my-phpmyadmin srcs/phpmyadmin > /dev/null
     docker build -t my-influxdb srcs/influxdb > /dev/null
+    docker build -t my-mysql srcs/mysql > /dev/null
 
     kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml 
     kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
@@ -45,6 +46,7 @@ then
     kubectl apply --filename srcs/k8s/wordpress.yaml
     kubectl apply --filename srcs/k8s/phpmyadmin.yaml
     kubectl apply --filename srcs/k8s/influxdb.yaml
+    kubectl apply --filename srcs/k8s/mysql.yaml
 
     minikube dashboard &
     
