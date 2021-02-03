@@ -23,8 +23,8 @@ fi
 
 if [ "$1" = "--start" ] 
 then
-	minikube start --vm-driver=docker --bootstrapper=kubeadm
-    sleep 1
+	minikube start --memory=3500mb --vm-driver=docker --bootstrapper=kubeadm
+    sleep 5
 	minikube addons enable dashboard
     minikube addons enable metrics-server
 
@@ -48,7 +48,7 @@ then
     kubectl apply --filename srcs/k8s/influxdb.yaml
     kubectl apply --filename srcs/k8s/mysql.yaml
 
-    minikube dashboard &
+    #minikube dashboard &
     
 	exit
 fi

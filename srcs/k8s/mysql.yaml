@@ -7,8 +7,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 3306
-      targetPort: 3306
+  - port: 3306
+    targetPort: 3306
   selector:
     app: mysql
 ---
@@ -20,27 +20,29 @@ metadata:
     app: mysql
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 3Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: mysql
   labels:
     app: mysql
-  name: mysql
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: mysql
     spec:
+      restartPolicy: Always
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
@@ -51,9 +53,9 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 3306
-        env:
-          - name: MYSQL_GROOT_HOST
-            value: '172.%'
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password

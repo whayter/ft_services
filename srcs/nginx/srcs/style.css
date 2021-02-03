@@ -1,6 +1,7 @@
 html {
-    --bg-color: #e3e3e3;
+    --bg-color: #343434;
     --h-font-family: "Futura";
+    color: white;
 }
 
 body {
@@ -10,10 +11,19 @@ body {
 
 h1, h2, h3 {
     font-family: var(--h-font-family);
+    color: white;
 }
 
 h3 {
     margin: 20px 0;
+}
+
+p, li {
+    color: white;
+} 
+
+hr {
+    border-top: none;
 }
 
 .text-center {

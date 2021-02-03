@@ -10,7 +10,7 @@ COPY ./srcs/wp-install.sh /wp-install.sh
 
 RUN sh /wp-install.sh
 
-COPY ./srcs/wp-config.php /www/var/wordpress/wp-config.php
+COPY ./srcs/wp-config.php /var/www/wordpress/wp-config.php
 COPY ./srcs/nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./srcs/wp-run.sh /wp-run.sh
 

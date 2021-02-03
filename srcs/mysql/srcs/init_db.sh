@@ -2,7 +2,8 @@
 
 until mysql
 do
-    sleep 0.5
+	echo "Starting mysql..."
 done
 
-mysql < worddpress.sql
+mysql < db.sql
+mysql wordpress < wordpress.sql

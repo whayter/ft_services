@@ -9,7 +9,7 @@ spec:
   ports:
   - port: 5000
     targetPort: 5000
-    name: https
+    name: http
   selector:
     app: phpmyadmin
 ---
@@ -35,4 +35,4 @@ spec:
           imagePullPolicy: Never
           ports:
           - containerPort: 5000
-            name: https
+            name: http
