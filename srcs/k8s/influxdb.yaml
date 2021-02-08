@@ -23,7 +23,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 2Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -52,6 +52,17 @@ spec:
         ports:
         - containerPort: 8086
           name: http
+        env:
+        - name: INFLUXDB_ADMIN_USER
+          value: admin
+        - name: INFLUXDB_ADMIN_PASSWORD
+          value: admin
+        - name: INFLUXDB_DB
+          value: db
+        - name: INFLUXDB_USER
+          value: admin
+        - name: INFLUXDB_PASSWORD
+          value: admin
         volumeMounts:
         - name: influxdb-pv
           mountPath: /var/lib/influxdb
