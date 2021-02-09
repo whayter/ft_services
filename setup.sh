@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 eval $(minikube docker-env --unset)
 minikube delete
 docker network prune --force
@@ -21,9 +23,9 @@ then
     exit
 fi
 
-if [ "$1" = "--start" ] 
+if [ "$1" = "" ] 
 then
-	minikube start --memory=4000mb --vm-driver=docker --bootstrapper=kubeadm
+	minikube start --memory=3000mb --vm-driver=docker --bootstrapper=kubeadm
     sleep 5
 	minikube addons enable dashboard
     minikube addons enable metrics-server
